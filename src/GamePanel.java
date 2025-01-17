@@ -7,7 +7,7 @@ import static java.awt.Font.PLAIN;
 
 
 public class GamePanel extends JPanel implements MouseListener, ActionListener {
-    static final int SCREEN_WIDTH = 600;
+        static final int SCREEN_WIDTH =600;
     static final int SCREEN_HEIGHT = 600;
     static final int UNIT_SIZE = 25;
     static final int GAME_UNIT = (SCREEN_WIDTH * SCREEN_HEIGHT / UNIT_SIZE);
@@ -80,11 +80,11 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener {
             }
         }
         g.setColor(Color.orange);
-        g.setFont(new Font("Bauhaus 93", PLAIN, UNIT_SIZE + (SCREEN_HEIGHT / 120)));
+        g.setFont(new Font("Bauhaus 93", PLAIN, (SCREEN_HEIGHT / 20)));
         FontMetrics metrics1 = getFontMetrics(g.getFont());
         g.drawString("Current generation : " + generation, (SCREEN_WIDTH - metrics1.stringWidth("Current generation : " + generation)) / 2, SCREEN_WIDTH * 19 / 20);
         g.setColor(Color.GREEN);
-        g.setFont(new Font("Bauhaus 93", PLAIN, UNIT_SIZE + (SCREEN_HEIGHT / 120)));
+        g.setFont(new Font("Bauhaus 93", PLAIN, (SCREEN_HEIGHT / 20)));
         FontMetrics metrics2 = getFontMetrics(g.getFont());
         g.drawString("Alive cells : " + aliveCells, (SCREEN_WIDTH - metrics2.stringWidth("Alive cells : " + aliveCells)) / 2, SCREEN_WIDTH * 17 / 20);
     }
