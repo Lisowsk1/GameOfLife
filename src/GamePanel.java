@@ -7,16 +7,17 @@ import static java.awt.Font.PLAIN;
 
 
 public class GamePanel extends JPanel implements MouseListener, ActionListener {
-    static final int SCREEN_WIDTH = 800;
-    static final int SCREEN_HEIGHT = 800;
+    static final int SCREEN_WIDTH = 600;
+    static final int SCREEN_HEIGHT = 600;
     static final int UNIT_SIZE = 25;
     static final int GAME_UNIT = (SCREEN_WIDTH * SCREEN_HEIGHT / UNIT_SIZE);
-    static final int DELAY = 120;
+    static final int DELAY = 110;
     boolean running = false;
     Timer timer;
     Random random;
     static int[][] board = new int[SCREEN_WIDTH / UNIT_SIZE][SCREEN_HEIGHT / UNIT_SIZE];
     static int generation = 0;
+    static int aliveCells=0;
 
     GamePanel() {
         random = new Random();
@@ -82,10 +83,15 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener {
         g.setFont(new Font("Bauhaus 93", PLAIN, UNIT_SIZE + (SCREEN_HEIGHT / 120)));
         FontMetrics metrics1 = getFontMetrics(g.getFont());
         g.drawString("Current generation : " + generation, (SCREEN_WIDTH - metrics1.stringWidth("Current generation : " + generation)) / 2, SCREEN_WIDTH * 19 / 20);
+        g.setColor(Color.GREEN);
+        g.setFont(new Font("Bauhaus 93", PLAIN, UNIT_SIZE + (SCREEN_HEIGHT / 120)));
+        FontMetrics metrics2 = getFontMetrics(g.getFont());
+        g.drawString("Alive cells : " + aliveCells, (SCREEN_WIDTH - metrics2.stringWidth("Alive cells : " + aliveCells)) / 2, SCREEN_WIDTH * 17 / 20);
     }
 
     public void gameOfLife(int[][] board) {
         generation++;
+        aliveCells=0;
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
                 encode(board, i, j);
@@ -116,7 +122,8 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener {
                 }
             }
         }
-
+        if(board[i][j]==1)
+            aliveCells++;
         board[i][j] = board[i][j] * 10 + aliveCount;
     }
 
@@ -163,10 +170,12 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener {
     @Override
     public void mousePressed(MouseEvent e) {
         if (board[getMousePosition().x / UNIT_SIZE][getMousePosition().y / UNIT_SIZE] == 0)
+        {
             board[getMousePosition().x / UNIT_SIZE][getMousePosition().y / UNIT_SIZE] = 1;
-        else
+        }
+        else {
             board[getMousePosition().x / UNIT_SIZE][getMousePosition().y / UNIT_SIZE] = 0;
-
+        }
         repaint();
     }
 
